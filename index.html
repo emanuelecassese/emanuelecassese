@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alex Rivera, frontend developer</title>
+<meta name="description" content="Portfolio of Alex Rivera, frontend developer and pixel artist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#efedf5; --surface:#f8f7fc; --ink:#1f1d3d; --muted:#625e80; --line:#1f1d3d;
+  --accent:#5b4cdb; --accent-ink:#ffffff; --warm:#ffb84d; --soft:#dcd7f3;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#17152b; --surface:#211e3b; --ink:#ece9fb; --muted:#a8a3c9; --line:#3b3666;
+    --accent:#9d91ff; --accent-ink:#17152b; --warm:#ffc46b; --soft:#2d2852;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#17152b; --surface:#211e3b; --ink:#ece9fb; --muted:#a8a3c9; --line:#3b3666;
+  --accent:#9d91ff; --accent-ink:#17152b; --warm:#ffc46b; --soft:#2d2852;
+}
+
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.0625rem;line-height:1.6}
+h1,h2,h3,.pixel{font-family:"Pixelify Sans","DM Sans",system-ui,sans-serif;font-weight:500;line-height:1.1;margin:0}
+a{color:inherit}
+canvas{image-rendering:pixelated;image-rendering:crisp-edges;display:block}
+:focus-visible{outline:3px solid var(--warm);outline-offset:4px}
+
+/* Pixel-notched border: four hard shadows leave the corners cut */
+.px{
+  background:var(--surface);
+  box-shadow:0 -3px 0 0 var(--line),0 3px 0 0 var(--line),-3px 0 0 0 var(--line),3px 0 0 0 var(--line);
+  margin:3px;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1.1rem;
+  font:500 1rem "DM Sans",system-ui,sans-serif;text-decoration:none;cursor:pointer;border:0;color:var(--ink);
+  background:var(--surface);
+  box-shadow:0 -3px 0 0 var(--line),0 3px 0 0 var(--line),-3px 0 0 0 var(--line),3px 0 0 0 var(--line);
+  margin:3px;
+}
+.btn.primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 -3px 0 0 var(--accent),0 3px 0 0 var(--accent),-3px 0 0 0 var(--accent),3px 0 0 0 var(--accent)}
+.btn:hover{transform:translateY(-2px)}
+@media (prefers-reduced-motion: reduce){.btn:hover{transform:none}}
+
+/* Header */
+.top{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);
+  display:flex;align-items:center;gap:1.5rem;padding:1rem clamp(1rem,4vw,3rem);
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.top .brand{font-size:1.4rem;text-decoration:none;margin-right:auto}
+.top nav{display:flex;gap:1.2rem;overflow-x:auto}
+.top nav a{text-decoration:none;color:var(--muted);white-space:nowrap}
+.top nav a:hover{color:var(--ink)}
+.theme{background:none;border:0;color:var(--muted);font:inherit;cursor:pointer;padding:.2rem}
+@media (max-width:720px){.top nav{display:none}}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(1rem,4vw,3rem)}
+section{padding:5rem 0 0}
+h2{font-size:clamp(2rem,4.5vw,2.8rem);margin-bottom:2rem}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center;padding-top:3rem}
+.hero h1{font-size:clamp(3.2rem,10vw,6.6rem);letter-spacing:-.01em}
+.hero .lede{font-size:clamp(1.15rem,2vw,1.35rem);max-width:34ch;margin:1.4rem 0 2rem;color:var(--muted)}
+.hero .lede strong{color:var(--ink);font-weight:500}
+.hero .actions{display:flex;flex-wrap:wrap;gap:1rem}
+.portrait{width:100%;max-width:400px;justify-self:end;aspect-ratio:1}
+.portrait canvas{width:100%;height:100%}
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr}
+  .portrait{justify-self:start;max-width:260px;order:-1}
+}
+
+/* About */
+.about{display:grid;grid-template-columns:1.4fr 1fr;gap:3rem}
+.about p{margin:0 0 1rem;max-width:62ch}
+.facts{margin:0;padding:1.4rem 1.6rem;display:grid;gap:1rem;align-self:start}
+.facts dt{color:var(--muted);font-size:.9rem}
+.facts dd{margin:0;font-weight:500}
+@media (max-width:760px){.about{grid-template-columns:1fr}}
+
+/* Experience */
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{display:grid;grid-template-columns:9rem 1fr;gap:1.5rem;padding:1.5rem 0;border-top:2px dashed var(--line)}
+.timeline li:last-child{border-bottom:2px dashed var(--line)}
+.timeline .years{color:var(--muted);font-variant-numeric:tabular-nums}
+.timeline h3{font-size:1.4rem;margin-bottom:.3rem}
+.timeline .org{color:var(--accent);font-weight:500}
+.timeline p{margin:.4rem 0 0;max-width:62ch}
+@media (max-width:600px){.timeline li{grid-template-columns:1fr;gap:.3rem}}
+
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:3rem}
+.skills h3{font-size:1.2rem;margin-bottom:.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;margin:0;padding:0}
+.chips li{background:var(--soft);padding:.15rem .6rem;font-size:.95rem}
+
+/* Projects */
+.projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2.2rem}
+.project{display:flex;flex-direction:column}
+.project canvas{width:100%;height:auto;aspect-ratio:8/5}
+.project .body{padding:1.2rem 1.3rem 1.4rem;display:flex;flex-direction:column;flex:1}
+.project h3{font-size:1.5rem;margin-bottom:.4rem}
+.project p{margin:0 0 1rem;color:var(--muted)}
+.project .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem;font-size:.85rem}
+.project .tags span{background:var(--soft);padding:.05rem .5rem}
+.project .links{margin-top:auto;display:flex;gap:1.2rem}
+.project .links a{font-weight:500;text-underline-offset:4px}
+
+/* Photos */
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.6rem}
+.photo{margin:0}
+.photo button{all:unset;display:block;width:100%;cursor:pointer}
+.photo button:focus-visible{outline:3px solid var(--warm);outline-offset:4px}
+.photo canvas{width:100%;height:auto;aspect-ratio:4/3}
+.photo figcaption{margin-top:.6rem;color:var(--muted);font-size:.95rem}
+.hint{color:var(--muted);margin:-1rem 0 2rem}
+
+/* Contact */
+.contact{padding:3rem clamp(1.4rem,4vw,3rem);display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end;margin-top:1rem}
+.contact h2{margin-bottom:1rem}
+.contact p{margin:0;max-width:44ch;color:var(--muted)}
+.contact .actions{display:flex;flex-wrap:wrap;gap:1rem}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+
+footer{padding:3rem 0 4rem;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a class="brand pixel" href="#top">alex rivera</a>
+  <nav aria-label="Main">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#photos">Photos</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="theme" id="themeBtn" type="button">Dark mode</button>
+</header>
+
+<main class="wrap" id="top">
+
+  <div class="hero">
+    <div>
+      <h1>Alex Rivera</h1>
+      <p class="lede"><strong>Frontend developer in Milan.</strong> I design and build calm, fast interfaces, and draw pixel art when the laptop should be closed.</p>
+      <div class="actions">
+        <a class="btn primary" href="#projects">See my projects</a>
+        <a class="btn" href="#" download>Download CV (PDF)</a>
+      </div>
+    </div>
+    <div class="portrait"><canvas id="portrait" width="48" height="48" role="img" aria-label="Pixel-art portrait of Alex"></canvas></div>
+  </div>
+
+  <section id="about">
+    <h2>About</h2>
+    <div class="about">
+      <div>
+        <p>I’ve spent the last five years turning designs into products people use every day, from a booking platform with 40,000 monthly users to small tools for local businesses. I care about the details nobody notices until they’re missing: loading states, keyboard navigation, the half-second that makes a page feel fast.</p>
+        <p>Outside of work I make pixel art and tiny web experiments. Drawing on a 32×32 grid taught me more about design than any course: every pixel has to earn its place.</p>
+      </div>
+      <dl class="facts px">
+        <div><dt>Based in</dt><dd>Milan, Italy</dd></div>
+        <div><dt>Currently</dt><dd>Frontend developer at Pixel Forge Studio</dd></div>
+        <div><dt>Open to</dt><dd>Freelance projects and collaborations</dd></div>
+        <div><dt>Languages</dt><dd>Italian, English, some Spanish</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <ol class="timeline">
+      <li>
+        <div class="years">2024 – now</div>
+        <div><h3>Frontend Developer</h3><div class="org">Pixel Forge Studio</div>
+        <p>Lead the interface of a booking platform. Built its design system and cut page load time in half.</p></div>
+      </li>
+      <li>
+        <div class="years">2021 – 2024</div>
+        <div><h3>Junior Web Developer</h3><div class="org">Bluebird Agency</div>
+        <p>Shipped more than 20 client websites, including an interactive map for a city museum.</p></div>
+      </li>
+      <li>
+        <div class="years">2018 – 2021</div>
+        <div><h3>BSc Computer Science</h3><div class="org">University of Milan</div>
+        <p>Thesis on procedural generation of 2D environments.</p></div>
+      </li>
+    </ol>
+
+    <div class="skills">
+      <div><h3>Code</h3><ul class="chips"><li>TypeScript</li><li>React</li><li>Svelte</li><li>Node.js</li><li>CSS</li><li>Python</li></ul></div>
+      <div><h3>Design</h3><ul class="chips"><li>Figma</li><li>Design systems</li><li>Accessibility</li><li>Aseprite</li></ul></div>
+      <div><h3>Workflow</h3><ul class="chips"><li>Git</li><li>Testing</li><li>Docker</li><li>CI/CD</li></ul></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects" id="projectList"></div>
+  </section>
+
+  <section id="photos">
+    <h2>Photos</h2>
+    <p class="hint">Hover or tap a picture to bring it into focus.</p>
+    <div class="photos" id="photoList"></div>
+  </section>
+
+  <section id="contact">
+    <div class="contact px">
+      <div>
+        <h2>Let’s work together</h2>
+        <p>Have a project in mind or just want to talk about pixels? My inbox is open.</p>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="mailto:alex@example.com">alex@example.com</a>
+        <a class="btn" href="https://github.com/">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 Alex Rivera. Portrait and illustrations drawn pixel by pixel.</footer>
+</main>
+
+<script>
+/* ===================== Your content ===================== */
+const PROJECTS = [
+  {title:"Booking Platform UI", desc:"Design system and front end for a service booking app used by 40,000 people a month.", tags:["React","TypeScript","Design system"], kind:"web", seed:3, code:"#", demo:"#"},
+  {title:"Palette Thief", desc:"Command-line tool that extracts a limited color palette from any photo.", tags:["Python","CLI"], kind:"tool", seed:8, code:"#", demo:null},
+  {title:"Weather Sprite", desc:"A weather widget with hand-drawn pixel skies for every forecast.", tags:["Svelte","Open-Meteo API"], kind:"web", seed:14, code:"#", demo:"#"},
+  {title:"Grid Sketchbook", desc:"A browser drawing tool for pixel art with layers and export to PNG.", tags:["Canvas","TypeScript"], kind:"grid", seed:21, code:"#", demo:"#"}
+];
+/* For real photos, add src:"images/your-photo.jpg" to an item */
+const PHOTOS = [
+  {caption:"Speaking at the Milan JS meetup", seed:2, scene:"dusk"},
+  {caption:"Desk setup, spring 2026", seed:5, scene:"day"},
+  {caption:"Hackathon weekend", seed:9, scene:"night"},
+  {caption:"Hiking break in the Dolomites", seed:13, scene:"mint"}
+];
+
+/* ===================== Helpers ===================== */
+const root=document.documentElement;
+const darkMQ=matchMedia("(prefers-color-scheme: dark)");
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const isDark=()=>root.dataset.theme?root.dataset.theme==="dark":darkMQ.matches;
+const css=v=>getComputedStyle(root).getPropertyValue(v).trim();
+const BAYER=[[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+/* fill a region with an ordered-dither blend between c1 and c2; f(x,y) returns 0..1 */
+function dither(ctx,x0,y0,w,h,c1,c2,f){
+  for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++){
+    const t=f(x,y); if(t===null) continue;
+    ctx.fillStyle = t*16 > BAYER[y&3][x&3]+.5 ? c2 : c1;
+    ctx.fillRect(x,y,1,1);
+  }
+}
+
+/* ===================== Portrait ===================== */
+const FACE=[
+"................................",
+"................................",
+"............oooooooo............",
+"..........ooHHhhhhhhoo..........",
+".........oHHHHhhhhhhhho.........",
+"........ohHHHHhhhhhhhhho........",
+".......ohhhhhhhhhhhhhhhho.......",
+".......ohhhhhhhhhhhhhhhho.......",
+"......ohhhhhhhhhhhhhhhhhho......",
+"......ohhhhsshhsshhsShhhho......",
+"......ohhsssssssssssSSShho......",
+"......ohhsssssssssssSSShho......",
+"......ohhsshhhsssshhhSShho......",
+".......ohsssssssssssSSSho.......",
+".......ohsssesssssseSSSho.......",
+"........osssesssssseSSSo........",
+"........osssssssssssSSSo........",
+"........osbsssssssssSbSo........",
+".........osssmssssmsSSo.........",
+".........ossssmmmmssSSo.........",
+"..........osssssssssSo..........",
+"...........osssssssso...........",
+"............oSssssSo............",
+"............oSSSSSSo............",
+"...........ooSSSSSSoo...........",
+"........ooottSSSSSSttooo........",
+"......ootttttScSScSttTTToo......",
+".....otttttttctSStcttTTTTTo.....",
+"....otttttttcttSSttctTTTTTTo....",
+"...ottttttttcttttttctTTTTTTTo...",
+"..otttttttttcttttttctTTTTTTTTo..",
+".otttttttttttttttttttTTTTTTTTTo."];
+function drawPortrait(){
+  const c=document.getElementById("portrait"), ctx=c.getContext("2d"), N=48;
+  const dark=isDark();
+  const P={o:"#1f1d3d",h:"#3a2a4a",H:"#5d4675",s:"#f2c7a5",S:"#dda383",e:"#1f1d3d",m:"#b35d63",b:"#eaa08f",
+           t:dark?"#7f72f0":"#5b4cdb",T:dark?"#6457d8":"#4436b5",c:dark?"#ffc46b":"#ffb84d"};
+  if(dark){P.o="#0e0c1f"}
+  ctx.fillStyle=css("--bg"); ctx.fillRect(0,0,N,N);
+  // soft dithered disc behind the head, fading out toward the edges
+  dither(ctx,0,0,N,N,css("--bg"),css("--soft"),(x,y)=>{
+    const d=Math.hypot(x+.5-24,y+.5-24)/24; return d>1?0:Math.min(1,(1-d)*2.2);
+  });
+  dither(ctx,0,0,N,N,css("--soft"),css("--warm"),(x,y)=>{
+    const d=Math.hypot(x+.5-24,y+.5-22)/15; return d>1?null:(1-d)*.9;
+  });
+  FACE.forEach((row,y)=>[...row].forEach((ch,x)=>{
+    if(ch==="."||ch===" ") return; ctx.fillStyle=P[ch]; ctx.fillRect(x+8,y+16,1,1);
+  }));
+}
+
+/* ===================== Project illustrations ===================== */
+function drawProject(c,p){
+  const ctx=c.getContext("2d"), W=c.width, H=c.height, r=rng(p.seed);
+  const a=css("--accent"), soft=css("--soft"), bg=css("--surface"), warm=css("--warm"), ink=css("--ink");
+  // diagonal dithered wash
+  const ang=r()*Math.PI;
+  dither(ctx,0,0,W,H,bg,soft,(x,y)=>Math.max(0,Math.min(1,((x*Math.cos(ang)+y*Math.sin(ang))/W)+.15)));
+  // dithered sun
+  const sx=10+r()*(W-20), sy=8+r()*14, sr=9+r()*5;
+  dither(ctx,0,0,W,H,soft,warm,(x,y)=>{const d=Math.hypot(x-sx,y-sy)/sr; return d>1?null:Math.min(1,(1-d)*2.5)});
+  ctx.fillStyle=ink;
+  const box=(x,y,w,h)=>{ctx.fillRect(x,y,w,1);ctx.fillRect(x,y+h-1,w,1);ctx.fillRect(x,y,1,h);ctx.fillRect(x+w-1,y,1,h)};
+  const fill=(x,y,w,h,col)=>{ctx.fillStyle=col;ctx.fillRect(x,y,w,h)};
+  const ox=Math.floor(W*.22), oy=Math.floor(H*.22), bw=Math.floor(W*.56), bh=Math.floor(H*.6);
+  fill(ox+2,oy+2,bw,bh,ink); fill(ox,oy,bw,bh,bg); ctx.fillStyle=ink; box(ox,oy,bw,bh);
+  if(p.kind==="web"){
+    fill(ox+1,oy+1,bw-2,4,a); [3,6,9].forEach(i=>fill(ox+bw-2-i,oy+2,2,2,bg));
+    fill(ox+4,oy+8,bw*.45,3,ink); fill(ox+4,oy+13,bw*.3,2,soft);
+    for(let i=0;i<3;i++) fill(ox+4+i*Math.floor((bw-8)/3),oy+bh-12,Math.floor((bw-8)/3)-2,8,i===1?a:soft);
+  } else if(p.kind==="tool"){
+    fill(ox+1,oy+1,bw-2,bh-2,"#1f1d3d");
+    const lines=[[".",14],[">",22],[">",10],["",18]];
+    lines.forEach(([_,w],i)=>{fill(ox+4,oy+4+i*5,2,2,warm);fill(ox+8,oy+4+i*5,w,2,i===3?a:"#dcd7f3")});
+    for(let i=0;i<5;i++) fill(ox+bw-6-i*5,oy+bh-7,4,4,["#ff6b6b","#ffb84d","#7bd389","#5b4cdb","#ece9fb"][i]);
+  } else {
+    const n=8, cs=Math.floor((bh-4)/n);
+    for(let y=0;y<n;y++)for(let x=0;x<Math.floor((bw-4)/cs);x++){
+      const on = r()>.55; if(on) fill(ox+2+x*cs,oy+2+y*cs,cs-1,cs-1,[a,warm,soft][Math.floor(r()*3)]);
+    }
+  }
+}
+function renderProjects(){
+  const el=document.getElementById("projectList");
+  el.innerHTML=PROJECTS.map((p,i)=>`
+    <article class="project px">
+      <canvas width="96" height="60" data-i="${i}" aria-hidden="true"></canvas>
+      <div class="body">
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+        <div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join("")}</div>
+        <div class="links">${p.code?`<a href="${p.code}">View code</a>`:""}${p.demo?`<a href="${p.demo}">Open live demo</a>`:""}</div>
+      </div>
+    </article>`).join("");
+  drawProjectArt();
+}
+function drawProjectArt(){document.querySelectorAll("#projectList canvas").forEach(c=>drawProject(c,PROJECTS[c.dataset.i]))}
+
+/* ===================== Photos: pixelated until you look closer ===================== */
+const SCENES={
+  dusk:["#ffcf7a","#e8835a","#8c3b5c","#3d1f3d"],
+  day:["#bfe6ff","#7fb4e8","#4f9d5a","#2f5d3a"],
+  night:["#1b1f4b","#3a3f86","#6b4fa8","#141838"],
+  mint:["#e6f5ec","#9fd4bd","#3f8f7b","#1d4a43"]
+};
+function fakePhoto(seed,scene){
+  const W=240,H=180,c=document.createElement("canvas");c.width=W;c.height=H;
+  const ctx=c.getContext("2d"),col=SCENES[scene],r=rng(seed);
+  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,col[0]);g.addColorStop(1,col[1]);
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  const sun=ctx.createRadialGradient(60+r()*120,50,2,60+r()*120,50,60);
+  sun.addColorStop(0,"rgba(255,255,240,.95)");sun.addColorStop(1,"rgba(255,255,240,0)");
+  ctx.fillStyle=sun;ctx.fillRect(0,0,W,H);
+  [[col[2],110,30],[col[3],140,18]].forEach(([cc,base,amp],k)=>{
+    ctx.fillStyle=cc;ctx.beginPath();ctx.moveTo(0,H);
+    const ph=r()*6;for(let x=0;x<=W;x+=4)ctx.lineTo(x,base-amp*(Math.sin(x/37+ph)*.6+Math.sin(x/13+ph*2)*.25+.5));
+    ctx.lineTo(W,H);ctx.fill();
+  });
+  return c;
+}
+function renderPhotos(){
+  const el=document.getElementById("photoList");
+  el.innerHTML=PHOTOS.map((p,i)=>`
+    <figure class="photo">
+      <button type="button" aria-label="Sharpen photo: ${p.caption}" data-i="${i}">
+        <canvas class="px" width="240" height="180"></canvas>
+      </button>
+      <figcaption>${p.caption}</figcaption>
+    </figure>`).join("");
+  el.querySelectorAll("button").forEach(btn=>{
+    const p=PHOTOS[btn.dataset.i], canvas=btn.querySelector("canvas");
+    const state={src:null,block:12,target:12,timer:null};
+    const paint=()=>{
+      if(!state.src) return;
+      const ctx=canvas.getContext("2d"),W=canvas.width,H=canvas.height,b=state.block;
+      const sw=Math.max(1,Math.round(W/b)),sh=Math.max(1,Math.round(H/b));
+      const tmp=paint.tmp||(paint.tmp=document.createElement("canvas"));
+      tmp.width=sw;tmp.height=sh;const t=tmp.getContext("2d");
+      t.imageSmoothingEnabled=true;t.drawImage(state.src,0,0,sw,sh);
+      ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,W,H);ctx.drawImage(tmp,0,0,W,H);
+    };
+    const go=target=>{
+      state.target=target;clearInterval(state.timer);
+      if(reduce){state.block=target;paint();return}
+      state.timer=setInterval(()=>{
+        if(state.block===state.target){clearInterval(state.timer);return}
+        state.block = state.block>state.target ? Math.max(state.target,Math.floor(state.block/2)) : Math.min(state.target,state.block*2);
+        paint();
+      },70);
+    };
+    if(p.src){const img=new Image();img.onload=()=>{state.src=img;paint()};img.src=p.src}
+    else{state.src=fakePhoto(p.seed,p.scene);paint()}
+    btn.addEventListener("mouseenter",()=>go(1));
+    btn.addEventListener("mouseleave",()=>go(12));
+    btn.addEventListener("focus",()=>go(1));
+    btn.addEventListener("blur",()=>go(12));
+    btn.addEventListener("click",()=>go(state.target===1?12:1));
+  });
+}
+
+/* ===================== Theme ===================== */
+const themeBtn=document.getElementById("themeBtn");
+try{const s=localStorage.getItem("theme");if(s)root.dataset.theme=s}catch(e){}
+function syncTheme(){themeBtn.textContent=isDark()?"Light mode":"Dark mode";drawPortrait();drawProjectArt()}
+themeBtn.addEventListener("click",()=>{
+  root.dataset.theme=isDark()?"light":"dark";
+  try{localStorage.setItem("theme",root.dataset.theme)}catch(e){}
+  syncTheme();
+});
+darkMQ.addEventListener("change",syncTheme);
+
+renderProjects();renderPhotos();syncTheme();
+</script>
+</body>
+</html>
