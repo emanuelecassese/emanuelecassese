@@ -315,19 +315,15 @@ const FACE=[
 function drawPortrait(){
   const c=document.getElementById("portrait"), ctx=c.getContext("2d"), N=48;
   const dark=isDark();
-  const P={o:"#1f1d3d",h:"#3a2a4a",H:"#5d4675",s:"#f2c7a5",S:"#dda383",e:"#1f1d3d",m:"#b35d63",b:"#eaa08f",
-           t:dark?"#7f72f0":"#5b4cdb",T:dark?"#6457d8":"#4436b5",c:dark?"#ffc46b":"#ffb84d"};
-  if(dark){P.o="#0e0c1f"}
+  const P={o:dark?"#0e0c1f":"#1f1d3d",e:dark?"#0e0c1f":"#1f1d3d",w:"#fbfaff",g:"#d6d0f0",b:"#fbfaff",B:"#fbfaff"};
   ctx.fillStyle=css("--bg"); ctx.fillRect(0,0,N,N);
   // soft dithered disc behind the head, fading out toward the edges
   dither(ctx,0,0,N,N,css("--bg"),css("--soft"),(x,y)=>{
     const d=Math.hypot(x+.5-24,y+.5-24)/24; return d>1?0:Math.min(1,(1-d)*2.2);
   });
-  dither(ctx,0,0,N,N,css("--soft"),css("--warm"),(x,y)=>{
-    const d=Math.hypot(x+.5-24,y+.5-22)/15; return d>1?null:(1-d)*.9;
-  });
+
   FACE.forEach((row,y)=>[...row].forEach((ch,x)=>{
-    if(ch==="."||ch===" ") return; ctx.fillStyle=P[ch]; ctx.fillRect(x+8,y+16,1,1);
+    if(ch==="."||ch===" ") return; ctx.fillStyle=P[ch]; ctx.fillRect(x+5,y+8,1,1);
   }));
 }
 
