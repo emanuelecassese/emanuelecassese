@@ -174,10 +174,10 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.9rem}
         <p>Outside of work I make pixel art and tiny web experiments. Drawing on a 32×32 grid taught me more about design than any course: every pixel has to earn its place.</p>
       </div>
       <dl class="facts px">
-        <div><dt>Based in</dt><dd>Milan, Italy</dd></div>
-        <div><dt>Currently</dt><dd>Frontend developer at Pixel Forge Studio</dd></div>
-        <div><dt>Open to</dt><dd>Freelance projects and collaborations</dd></div>
-        <div><dt>Languages</dt><dd>Italian, English, some Spanish</dd></div>
+        <div><dt>Based in</dt><dd>North Italy</dd></div>
+        <div><dt>Currently</dt><dd>Platform Engineer at Elmec Informatica S.p.A.</dd></div>
+        <div><dt>Open to</dt><dd>new work experiences</dd></div>
+        <div><dt>Languages</dt><dd>Italian, English</dd></div>
       </dl>
     </div>
   </section>
@@ -272,38 +272,46 @@ function dither(ctx,x0,y0,w,h,c1,c2,f){
 
 /* ===================== Portrait ===================== */
 const FACE=[
-"................................",
-"................................",
-"............oooooooo............",
-"..........ooHHhhhhhhoo..........",
-".........oHHHHhhhhhhhho.........",
-"........ohHHHHhhhhhhhhho........",
-".......ohhhhhhhhhhhhhhhho.......",
-".......ohhhhhhhhhhhhhhhho.......",
-"......ohhhhhhhhhhhhhhhhhho......",
-"......ohhhhsshhsshhsShhhho......",
-"......ohhsssssssssssSSShho......",
-"......ohhsssssssssssSSShho......",
-"......ohhsshhhsssshhhSShho......",
-".......ohsssssssssssSSSho.......",
-".......ohsssesssssseSSSho.......",
-"........osssesssssseSSSo........",
-"........osssssssssssSSSo........",
-"........osbsssssssssSbSo........",
-".........osssmssssmsSSo.........",
-".........ossssmmmmssSSo.........",
-"..........osssssssssSo..........",
-"...........osssssssso...........",
-"............oSssssSo............",
-"............oSSSSSSo............",
-"...........ooSSSSSSoo...........",
-"........ooottSSSSSSttooo........",
-"......ootttttScSScSttTTToo......",
-".....otttttttctSStcttTTTTTo.....",
-"....otttttttcttSSttctTTTTTTo....",
-"...ottttttttcttttttctTTTTTTTo...",
-"..otttttttttcttttttctTTTTTTTTo..",
-".otttttttttttttttttttTTTTTTTTTo."];
+"........................................",
+"........................................",
+"........................................",
+"...........................oo...........",
+"........................ooowgoo.........",
+".......................owwwwwggo........",
+".....................oowwwwwwwggo.......",
+"..................ooowwwwwwwwwggo.......",
+"..............oooobbbwwwooowwwwggo......",
+"............oobbbbbbbwwwwewwwwwggo......",
+"..........ooBBBBBBBBBwwwwwwwwwwggo......",
+"............ooooooooowwwwwwwwwwggo......",
+"...................owwwwwwwwwwwggo......",
+"...................owwwwwwwwwwwwggo.....",
+"..................owowwwwwwwwwwwggo.....",
+"......oo.........owwowwwwwwwwwwwggo.....",
+"......owo.......owwwowowwwwwwwwwggo.....",
+"......owo.....oowwwwowowwwwwwwwwggo.....",
+".....owwoo...owowwwwowowwwwwwowwggo.....",
+".....owwwwo.owwowwwwowowwwwwwowwggo.....",
+".....owwwwwowwowwwwwowowwwwwwowwggo.....",
+".....owwwwwwwwowwwwwowowwwwwowwwggo.....",
+"......owwwwwwowwwwwwowowwwwwowwwggo.....",
+".......ooooooowwwwwwowowwwwwowwwggo.....",
+"............owwwwwwowwowwwwwowwwggo.....",
+"............owwwwwwowwowwwwwowwwggo.....",
+"...........owwwwwwwowwowwwwowwwwggo.....",
+"...........owwwwwwwowwowwwwowwwwggo.....",
+"...........owwwwwwwowwowwwwowwwwggo.....",
+"...........owwwwwwowwwowwwwowwwwggo.....",
+"..........owwwwwwwowwwowwwowwwwwggo.....",
+"..........owwwwwwwowwwowwwowwwwwggo.....",
+"..........owwwwwwowwwwowwowwwwwwggo.....",
+"..........owwwwwwowwwwowwowwwwwwggo.....",
+".........owwwwwwwowwwwowowwwwwwwggo.....",
+".........owwwwwwwowwwwwoowwwwwwwggo.....",
+".........owwwwwwowwwwwwowwwwwwwwggo.....",
+".........owwwwwwowwwwwwowwwwwwwwggo.....",
+"..ooooooowwwwwwwowwwwwwwwwwwooooooo.....",
+"..ooooooooooooooooooooooooooo..........."];
 function drawPortrait(){
   const c=document.getElementById("portrait"), ctx=c.getContext("2d"), N=48;
   const dark=isDark();
