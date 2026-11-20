@@ -145,7 +145,7 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.9rem}
   <nav aria-label="Main">
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
+    <a href="#projects">Projects and posts</a>
     <a href="#photos">Photos</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -171,6 +171,7 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.9rem}
     <div class="about">
       <div>
         <p>I’ve spent the last four years design, deploy and managing infrastructures for internal developers and customers. I've deployed a lot of different solutions, messed up a lot of things and broken some stuff. Only those who don't work don't break anything.</p>
+        <p> HOMELAB WIP </p>
         <p>Outside of work, i really like videogames and keyboards. <b>Mechanical Keyboard.</b></p>
       </div>
       <dl class="facts px">
@@ -187,13 +188,23 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.9rem}
     <ol class="timeline">
       <li>
         <div class="years">2024 – now</div>
-        <div><h3>Frontend Developer</h3><div class="org">Pixel Forge Studio</div>
-        <p>Lead the interface of a booking platform. Built its design system and cut page load time in half.</p></div>
+        <div><h3>Platform Engineer</h3><div class="org">Elmec Informatica S.p.A</div>
+        <p>Design, build and operate the managed Kubernetes service for ~20 customers, provisioned with Cluster API on Proxmox, from cluster creation to application delivery, with the largest environments at 3 clusters of 50 workers each</p>
+        <p>Operate ~600 K3s clusters (1-2 per customer, from single-node up) delivering managed services to ~600 customers worldwide, provisioned with Ansible on VMs and bare metal</p>
+        <p>Run an on-prem GPU platform (NVIDIA H100 and L40S) built on the NVIDIA GPU Operator, using HAMi to slice GPUs across the cluster</p>
+        <p>Serve AI models, from text-to-speech to embedding, with vLLM, KServe and LocalAI, changing models frequently as needs evolve</p>
+        <p>Expose the platform through LiteLLM as a single API gateway for ~1,000 internal users and some customers, also routing requests to cloud models (OpenAI, Claude)</p>
+        <p>Manage all cluster operators and the full stack from scratch to application deployment, using Argo and GitLab CI/CD</p>
+        <p>Apply security best practices: RBAC, Network Policies and SCC, with secrets handled through Vault and External Secrets</p></div>
       </li>
       <li>
         <div class="years">2021 – 2024</div>
-        <div><h3>Junior Web Developer</h3><div class="org">Bluebird Agency</div>
-        <p>Shipped more than 20 client websites, including an interactive map for a city museum.</p></div>
+        <div><h3>Automation & Cloud Specialist</h3><div class="org">Elmec Informatica S.p.A.</div>
+        <p>Operated Kubernetes clusters across all customer environments and, as part of the operations team, managed and monitored ~60 application databases running on CloudNativePG (CNPG) on Kubernetes</p>
+        <p>Developed Nagios monitoring plugins running on hundreds of thousands of hosts across customers</p>
+        <p>Administered CentOS and Ubuntu Linux systems and database operations (MongoDB, MariaDB, PostgreSQL)</p>
+        <p>Automated operations with Ansible Tower, Python, Bash and Golang</p>
+        <p>Managed team services following the ITIL framework</p></div>
       </li>
       <li>
         <div class="years">2019 – 2020</div>
@@ -206,12 +217,12 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.9rem}
     <div class="skills">
       <div><h3>Code</h3><ul class="chips"><li>Python</li><li>Go</li><li>Lua (WIP)</li><li>Bash</li><li>Ansible</li></ul></div>
       <div><h3>Platform</h3><ul class="chips"><li>Kubernetes</li><li>Cloud (WIP)</li><li>Proxmox</li><li>Openshift</li><li>Linux</li></ul></div>
-      <div><h3>Applications</h3><ul class="chips"><li>Gitlab</li><li>ArgoCD</li><li>Vault</li>CloudNativePG</ul></div>
+      <div><h3>Applications</h3><ul class="chips"><li>Gitlab</li><li>ArgoCD</li><li>Vault</li><li>CloudNativePG</li></ul></div>
     </div>
   </section>
 
   <section id="projects">
-    <h2>Projects</h2>
+    <h2>Projects and posts</h2>
     <div class="projects" id="projectList"></div>
   </section>
 
