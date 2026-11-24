@@ -86,7 +86,7 @@ h2{font-size:clamp(2rem,4.5vw,2.8rem);margin-bottom:2rem}
 .timeline li:last-child{border-bottom:2px dashed var(--line)}
 .timeline .years{color:var(--muted);font-variant-numeric:tabular-nums}
 .timeline h3{font-size:1.4rem;margin-bottom:.3rem}
-.timeline .org{color:var(--accent);font-weight:500}
+.timeline .org{color:var(--accent-text);font-weight:500}
 .timeline p{margin:.4rem 0 0;max-width:62ch}
 @media (max-width:600px){.timeline li{grid-template-columns:1fr;gap:.3rem}}
 
@@ -311,7 +311,7 @@ const FACE=[
 function drawPortrait(){
   const c=document.getElementById("portrait"), ctx=c.getContext("2d"), N=48;
   const dark=isDark();
-  const P={o:dark?"#0e0c1f":"#1f1d3d",e:dark?"#0e0c1f":"#1f1d3d",w:"#fbfaff",g:"#d6d0f0",b:"#fbfaff",B:"#fbfaff"};
+  const P={o:"#2a1238",e:"#2a1238",w:"#fefcff",g:"#e6d3f3",b:"#fefcff",B:"#fefcff"};
   ctx.fillStyle=css("--bg"); ctx.fillRect(0,0,N,N);
   // soft dithered disc behind the head, fading out toward the edges
   dither(ctx,0,0,N,N,css("--bg"),css("--soft"),(x,y)=>{
