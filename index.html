@@ -123,9 +123,7 @@ h2{font-size:clamp(2rem,4.5vw,2.8rem);margin-bottom:2rem}
 /* Photos */
 .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.6rem}
 .photo{margin:0}
-.photo button{all:unset;display:block;width:100%;cursor:pointer}
-.photo button:focus-visible{outline:3px solid var(--warm);outline-offset:4px}
-.photo canvas{width:100%;height:auto;aspect-ratio:4/3}
+.photo img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
 .photo figcaption{margin-top:.6rem;color:var(--muted);font-size:.95rem}
 .hint{color:var(--muted);margin:-1rem 0 2rem}
 
@@ -229,7 +227,6 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.9rem}
 
   <section id="photos">
     <h2>Photos</h2>
-    <p class="hint">Hover or tap a picture to bring it into focus.</p>
     <div class="photos" id="photoList"></div>
   </section>
 
@@ -410,43 +407,11 @@ function fakePhoto(seed,scene){
   return c;
 }
 function renderPhotos(){
-  const el=document.getElementById("photoList");
-  el.innerHTML=PHOTOS.map((p,i)=>`
+  document.getElementById("photoList").innerHTML = PHOTOS.map(p=>`
     <figure class="photo">
-      <button type="button" aria-label="Sharpen photo: ${p.caption}" data-i="${i}">
-        <canvas class="px" width="1080" height="720"></canvas>
-      </button>
+      <img class="px" src="${p.src}" alt="${p.caption}" loading="lazy">
       <figcaption>${p.caption}</figcaption>
     </figure>`).join("");
-  el.querySelectorAll("button").forEach(btn=>{
-    const p=PHOTOS[btn.dataset.i], canvas=btn.querySelector("canvas");
-    const state={src:null,block:12,target:12,timer:null};
-    const paint=()=>{
-      if(!state.src) return;
-      const ctx=canvas.getContext("2d"),W=canvas.width,H=canvas.height,b=state.block;
-      const sw=Math.max(1,Math.round(W/b)),sh=Math.max(1,Math.round(H/b));
-      const tmp=paint.tmp||(paint.tmp=document.createElement("canvas"));
-      tmp.width=sw;tmp.height=sh;const t=tmp.getContext("2d");
-      t.imageSmoothingEnabled=true;t.drawImage(state.src,0,0,sw,sh);
-      ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,W,H);ctx.drawImage(tmp,0,0,W,H);
-    };
-    const go=target=>{
-      state.target=target;clearInterval(state.timer);
-      if(reduce){state.block=target;paint();return}
-      state.timer=setInterval(()=>{
-        if(state.block===state.target){clearInterval(state.timer);return}
-        state.block = state.block>state.target ? Math.max(state.target,Math.floor(state.block/2)) : Math.min(state.target,state.block*2);
-        paint();
-      },70);
-    };
-    if(p.src){const img=new Image();img.onload=()=>{state.src=img;paint()};img.src=p.src}
-    else{state.src=fakePhoto(p.seed,p.scene);paint()}
-    btn.addEventListener("mouseenter",()=>go(1));
-    btn.addEventListener("mouseleave",()=>go(48));
-    btn.addEventListener("focus",()=>go(1));
-    btn.addEventListener("blur",()=>go(48));
-    btn.addEventListener("click",()=>go(state.target===1?12:1));
-  });
 }
 
 /* ===================== Theme ===================== */
