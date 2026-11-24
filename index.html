@@ -61,7 +61,7 @@ h2{font-size:clamp(2rem,4.5vw,2.8rem);margin-bottom:2rem}
 
 /* Hero */
 .hero{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center;padding-top:3rem}
-.hero h1{font-size:clamp(3.2rem,10vw,6.6rem);letter-spacing:-.01em}
+.hero h1{font-size:clamp(3.2rem,10vw,6.6rem);letter-spacing:-.01em;color:var(--accent)}
 .hero .lede{font-size:clamp(1.15rem,2vw,1.35rem);max-width:34ch;margin:1.4rem 0 2rem;color:var(--muted)}
 .hero .lede strong{color:var(--ink);font-weight:500}
 .hero .actions{display:flex;flex-wrap:wrap;gap:1rem}
@@ -314,7 +314,7 @@ function drawPortrait(){
   const P={o:"#2a1238",e:"#2a1238",w:"#fefcff",g:"#e6d3f3",b:"#fefcff",B:"#fefcff"};
   ctx.fillStyle=css("--bg"); ctx.fillRect(0,0,N,N);
   // soft dithered disc behind the head, fading out toward the edges
-  dither(ctx,0,0,N,N,css("--bg"),css("--soft"),(x,y)=>{
+  dither(ctx,0,0,N,N,css("--bg"),css("--accent"),(x,y)=>{
     const d=Math.hypot(x+.5-24,y+.5-24)/24; return d>1?0:Math.min(1,(1-d)*2.2);
   });
 
