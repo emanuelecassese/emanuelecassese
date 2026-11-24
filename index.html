@@ -147,7 +147,7 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.9rem}
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#projects">Projects and posts (WIP)</a>
-    <a href="#photos">Photos (WIP)</a>
+    <a href="#photos">Photos</a>
     <a href="#contact">Contact</a>
   </nav>
   <button class="theme" id="themeBtn" type="button">Dark mode</button>
@@ -228,7 +228,7 @@ footer{padding:3rem 0 4rem;color:var(--muted);font-size:.9rem}
   </section>
 
   <section id="photos">
-    <h2>Photos (WIP)</h2>
+    <h2>Photos</h2>
     <p class="hint">Hover or tap a picture to bring it into focus.</p>
     <div class="photos" id="photoList"></div>
   </section>
@@ -414,7 +414,7 @@ function renderPhotos(){
   el.innerHTML=PHOTOS.map((p,i)=>`
     <figure class="photo">
       <button type="button" aria-label="Sharpen photo: ${p.caption}" data-i="${i}">
-        <canvas class="px" width="480" height="360"></canvas>
+        <canvas class="px" width="1080" height="720"></canvas>
       </button>
       <figcaption>${p.caption}</figcaption>
     </figure>`).join("");
@@ -442,9 +442,9 @@ function renderPhotos(){
     if(p.src){const img=new Image();img.onload=()=>{state.src=img;paint()};img.src=p.src}
     else{state.src=fakePhoto(p.seed,p.scene);paint()}
     btn.addEventListener("mouseenter",()=>go(1));
-    btn.addEventListener("mouseleave",()=>go(24));
+    btn.addEventListener("mouseleave",()=>go(48));
     btn.addEventListener("focus",()=>go(1));
-    btn.addEventListener("blur",()=>go(24));
+    btn.addEventListener("blur",()=>go(48));
     btn.addEventListener("click",()=>go(state.target===1?12:1));
   });
 }
