@@ -311,7 +311,7 @@ const FACE=[
 function drawPortrait(){
   const c=document.getElementById("portrait"), ctx=c.getContext("2d"), N=48;
   const dark=isDark();
-  const P={o:"#2a1238",e:"#2a1238",w:"#fefcff",g:"#e6d3f3",b:"#fefcff",B:"#fefcff"};
+  const P={o:"#aa37db",e:"#aa37db",w:"#fefcff",g:"#e6d3f3",b:"#fefcff",B:"#fefcff"};
   ctx.fillStyle=css("--bg"); ctx.fillRect(0,0,N,N);
   // soft dithered disc behind the head, fading out toward the edges
   dither(ctx,0,0,N,N,css("--bg"),css("--soft"),(x,y)=>{
