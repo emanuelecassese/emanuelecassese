@@ -441,9 +441,9 @@ function renderPhotos(){
     };
     if(p.src){const img=new Image();img.onload=()=>{state.src=img;paint()};img.src=p.src}
     else{state.src=fakePhoto(p.seed,p.scene);paint()}
-    btn.addEventListener("mouseenter",()=>go(1));
+    btn.addEventListener("mouseenter",()=>go(0));
     btn.addEventListener("mouseleave",()=>go(48));
-    btn.addEventListener("focus",()=>go(1));
+    btn.addEventListener("focus",()=>go(0));
     btn.addEventListener("blur",()=>go(48));
     btn.addEventListener("click",()=>go(state.target===1?12:1));
   });
